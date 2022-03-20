@@ -1,0 +1,113 @@
+@import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,100;1,900&display=swap);
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Roboto, sans-serif, Arial;
+}
+
+.navbar-brand {
+  color: #BE0002;
+}
+
+footer {
+  background-color: #202020;
+  color: #eee;
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  height: 80vh;
+  width: 100vw;
+}
+
+.wrapper .title {
+  font-weight: 900;
+  font-size: 35px;
+}
+
+.wrapper img {
+  width: 300px;
+  height: 300px;
+  margin: 20px;
+}
+
+.content-description {
+  width: 50%;
+  text-align: center;
+}
+
+.content-description p {
+  text-align: left;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+}
+
+.dashboard-wrapper {
+  width: 90%;
+  margin: auto;
+}
+.dashboard-wrapper .pending_transactions {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+}
+.dashboard-wrapper .pending_transactions .pending {
+  background-color: #202020;
+  width: 200px;
+  color: #eee;
+  padding: 5px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.dashboard-wrapper .charts {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.properties-wrapper {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
+/* Ensure that the demo table scrolls */
+th, td {
+  white-space: nowrap;
+}
+
+div.dataTables_wrapper {
+  margin: 0 auto;
+}
+
+div.container {
+  width: 80%;
+}
+
+.buttons {
+  width: 100%;
+  text-align: right;
+  padding: 10px 0px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-wrapper img {
+  margin-right: 50px;
+}
+
+.equipment-details {
+  max-height: 500px;
+  overflow: scroll;
+}
