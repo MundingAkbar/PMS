@@ -480,7 +480,7 @@
 
 @section('scripts')
 <script src="/js/maintenances.js"></script>
-<script>
+{{-- <script>
     //datatable ajax 
     var table = $('#myTable').DataTable({
        processing: true,
@@ -521,5 +521,5 @@
        fixedColumns: true,
        iDisplayLength: 25,
    })
-</script>
+</script> --}}
 @endsection
