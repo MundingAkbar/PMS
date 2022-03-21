@@ -15,13 +15,9 @@ return new class extends Migration
     {
         Schema::table('maintenances', function (Blueprint $table) {
             //
-            $table->date('date_start')->nullable();
-            $table->date('date_end')->nullable();
-            $table->integer('working_days')->nullable();
-            $table->integer('units')->nullable();
-            $table->bigInteger('office')->unsigned()->nullable();
+            $table->bigInteger('article')->unsigned()->nullable();
 
-            $table->foreign('office')->references('id')->on('offices')->cascadeOnUpdate()->nullOnDelete();
+            $table->foreign('article')->references('id')->on('articles')->cascadeOnUpdate()->nullOnDelete();
         });
     }
 

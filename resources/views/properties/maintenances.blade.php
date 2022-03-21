@@ -113,6 +113,13 @@
                             <input type="number" class="form-control border-secondary" name="units" id="units" required>
                         </div>
                         <div class="col">
+                            <label for="article">Article</label>
+                            <select class="form-select border-secondary" id='article' name="article" required>
+                                <option value="NULL" selected>- Select -</option>
+                                @foreach ($articles as $articles)
+                                <option value="{{ $articles->id }}">{{ $articles->article }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
                     <!-- end of input group -->

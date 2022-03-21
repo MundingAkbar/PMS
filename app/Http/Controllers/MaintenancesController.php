@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Offices;
 use App\Models\Equipment;
 use App\Models\Maintenances;
+use App\Models\Articles;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\QueryException;
 use DB;
@@ -15,6 +16,7 @@ class MaintenancesController extends Controller
 {
     public function index(){
         $offices = Offices::all();
+        $articles = Articles::all();
         $equipment = DB::table('equipment')
         ->leftjoin('articles','articles.id','=','equipment.article')
         ->leftjoin('users','users.id','=','equipment.requisitioner')
@@ -25,6 +27,7 @@ class MaintenancesController extends Controller
         return view('properties.maintenances',[
             'equipment'=>$equipment,
             'offices'=>$offices,
+            'articles'=>$articles,
         ]);
     }
       // function for adding article
