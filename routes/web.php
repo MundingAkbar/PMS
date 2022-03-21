@@ -96,6 +96,15 @@ Route::get('/admin/properties/maintenances/schedules_list', [MaintenancesControl
 Route::get('/admin/properties/maintenances/edit/{id}', [MaintenancesController::class, 'edit']);
 Route::put('/admin/properties/maintenances/edit/save/{id}', [MaintenancesController::class, 'update'])->middleware('isAdmin');
 Route::delete('/admin/properties/maintenances/delete/confirm/{id}', [MaintenancesController::class, 'destroy']);
+// /admin/properties/request/store
+// ======================================================================
+Route::post('/admin/properties/request/store', [RequestController::class, 'store']);
+Route::get('/admin/properties/request/requests_list', [RequestController::class, 'getRequestsList'])->name('get.requests.list');
+Route::delete('/admin/properties/requests/add_requests_to_equipment/{id}', [RequestController::class, 'update_equipment']);
+Route::delete('/admin/properties/requests/add_requests_to_vehicles/{id}', [RequestController::class, 'update_vehicles']);
+// Route::get('/admin/properties/maintenances/edit/{id}', [RequestController::class, 'edit']);
+// Route::put('/admin/properties/maintenances/edit/save/{id}', [RequestController::class, 'update'])->middleware('isAdmin');
+// Route::delete('/admin/properties/maintenances/delete/confirm/{id}', [RequestController::class, 'destroy']);
 // =====================================================================
 // Admin routes
 Route::group(['prefix'=>'admin', 'middleware'=>'isAdmin','auth'], function(){
