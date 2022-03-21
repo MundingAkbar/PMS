@@ -92,6 +92,10 @@ Route::put('/admin/properties/landimprovements/edit/save/{id}', [Landimprovement
 Route::delete('/admin/properties/landimprovements/delete/confirm/{id}', [LandimprovementsController::class, 'destroy']);
 // Maintenances Controller
 Route::post('/admin/properties/maintenances/store', [MaintenancesController::class, 'store']);
+Route::get('/admin/properties/maintenances/schedules_list', [MaintenancesController::class, 'getSchedulesList'])->name('get.maintenances.list');
+Route::get('/admin/properties/maintenances/edit/{id}', [MaintenancesController::class, 'edit']);
+Route::put('/admin/properties/maintenances/edit/save/{id}', [MaintenancesController::class, 'update'])->middleware('isAdmin');
+Route::delete('/admin/properties/maintenances/delete/confirm/{id}', [MaintenancesController::class, 'destroy']);
 // =====================================================================
 // Admin routes
 Route::group(['prefix'=>'admin', 'middleware'=>'isAdmin','auth'], function(){

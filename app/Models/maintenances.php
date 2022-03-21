@@ -19,6 +19,7 @@ class maintenances extends Model
         'date_end',
         'working_days',
         'office',
-        'units'
+        'units',
+        'article',
     ];
 }

@@ -116,8 +116,8 @@
                             <label for="article">Article</label>
                             <select class="form-select border-secondary" id='article' name="article" required>
                                 <option value="NULL" selected>- Select -</option>
-                                @foreach ($articles as $articles)
-                                <option value="{{ $articles->id }}">{{ $articles->article }}</option>
+                                @foreach ($articles as $article)
+                                <option value="{{ $article->id }}">{{ $article->article }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -139,36 +139,37 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Maintenance Schedule</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Update Maintenance Schedule</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <form action="">
+              <input type="hidden" id="edit_id">
                 <!-- input group -->
                     <div class="row">
                         <div class="col">
-                            <label for="asdf">Date Start:</label>
-                            <input type="date" class="form-control" name="adsf" id="adsf" required>
+                            <label for="edit_date_start">Date Start:</label>
+                            <input type="date" class="form-control" name="edit_date_start" id="edit_date_start" required>
                         </div>
                         <div class="col">
-                            <label for="adf">Date End:</label>
-                            <input type="date" class="form-control" name="adsf" id="adf" aria-label="First name" required>
+                            <label for="edit_date_end">Date End:</label>
+                            <input type="date" class="form-control" name="edit_date_end" id="edit_date_end" required>
                         </div>
                     </div>
                     <!-- end of input group -->
                     <!-- input group -->
                     <div class="row">
                         <div class="col">
-                            <label for="adsf">No. of Workig Days:</label>
-                            <input type="number" class="form-control" name="adfs" id="adfs" required>
+                            <label for="edit_working_days">No. of Workig Days:</label>
+                            <input type="number" class="form-control" name="edit_working_days" id="edit_working_days" required>
                         </div>
                         <div class="col">
-                            <label for="sadf">Office/College:</label>
-                            <select class="form-select" name="adf" id="adf" required>
-                                <option selected>- Select -</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <label for="edit_office">Office/College:</label>
+                            <select class="form-select border-secondary" id='edit_office' name="edit_office" required>
+                                <option value="NULL" selected>- Select -</option>
+                                @foreach ($offices as $office)
+                                <option value="{{ $office->id }}">{{ $office->office_name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
@@ -176,23 +177,23 @@
                     <!-- input group -->
                     <div class="row">
                         <div class="col">
-                            <label for="adf">No. of Units</label>
-                            <input type="number" class="form-control" name="adf" id="adf" required>
+                            <label for="edit_units">No. of Units</label>
+                            <input type="number" class="form-control" name="edit_units" id="edit_units" required>
                         </div>
                         <div class="col">
-                            <label for="account_code">Equipment</label>
-                             <select class="form-select" aria-label="Default select example" required>
-                                <option selected>- Select -</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                            <label for="article">Article</label>
+                            <select class="form-select border-secondary" id='edit_article' name="edit_article" required>
+                                <option value="NULL" selected>- Select -</option>
+                                @foreach ($articles as $article)
+                                <option value="{{ $article->id }}">{{ $article->article }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <!-- end of input group -->
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="update_btn">Update</button>
                 </div>
           </form>
         </div>
@@ -200,88 +201,33 @@
     </div>
     <!-- End of Update Modal -->
     <!-- =============================================================== -->
-    <!-- View Modal -->
-    <div class="modal fade" id="viewModal" tabindex="-1" aria-labelledby="viewModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="viewModalLabel">View Maintenance Schedule</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    {{-- Delete Confirmation Modal --}}
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header bg-warning">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-                <h5>Equipment Details</h5>
-                <div class="row">
-                    <div class="col">
-                        <p><b>Airconditioner</b></p>
-                        <p>Description: Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi, consequuntur!</p>
-                        <p>Number of Units for Maintenance: 5</p>
-                    </div>
-                    <div class="col">
-                    <form action="">
-                    <!-- input group -->
-                        <div class="row">
-                            <div class="col">
-                                <label for="article">Date Start:</label>
-                                <input type="date" class="form-control" name="article"  aria-label="First name" required disabled>
-                            </div>
-                            <div class="col">
-                                <label for="requisitioner">Date End:</label>
-                                <input type="date" class="form-control" name="article"  aria-label="First name" required disabled>
-                            </div>
-                        </div>
-                        <!-- end of input group -->
-                        <!-- input group -->
-                        <div class="row">
-                            <div class="col">
-                                <label for="deployment">No. of Workig Days:</label>
-                                <input type="number" class="form-control" name="article"  aria-label="First name" required disabled>
-                            </div>
-                            <div class="col">
-                                <label for="property_number">Office/College:</label>
-                                <select class="form-select" aria-label="Default select example" required disabled>
-                                    <option selected>- Select -</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end of input group -->
-                        <!-- input group -->
-                        <div class="row">
-                            <div class="col">
-                                <label for="account_code">No. of Units</label>
-                                <input type="number" class="form-control" name="account_code"  aria-label="First name" required disabled>
-                            </div>
-                            <div class="col">
-                                <label for="account_code">Equipment</label>
-                                <select class="form-select" aria-label="Default select example" required disabled>
-                                    <option selected>- Select -</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
-                            </div>
-                        </div>
-                        <!-- end of input group -->
-                    </div>
-                </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-          </form>
+        <input type="hidden" id="delete_id">
+        Are your sure you want to delete this record?
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary delete_btn">Yes Delete</button>
         </div>
     </div>
     </div>
-    <!-- End of Add Modal -->
+</div>
+{{-- end of delete modal --}}
 @include('layouts.footer')
 @endsection
 
 @section('scripts')
 <script src="/js/maintenances.js"></script>
-{{-- <script>
+<script>
     //datatable ajax 
     var table = $('#myTable').DataTable({
        processing: true,
@@ -298,17 +244,20 @@
                    return '<span><button value="'+data+'" class="btn btn-danger btn_delete">Delete</button></span>  <span> <button type="button" value="'+data+'" class="btn btn_edit btn-dark" data-bs-toggle="modal" data-bs-target="#updateModal">Update</button></span>'
                }
            },
-           { data : "name_of_project", name: "name_of_project" },
-           { data : "location", name: "location" },
+           { data : "article_name", name: "article_name" },
+           { data : "date_start", name: "date_start" },
+           { data : "date_end", name: "date_end" },
            {
-                data: 'project_cost',
-                name: 'project_cost',
+                data: 'working_days',
+                name: 'working_days',
                 orderable: true,
                 searchable: true,
                 "render": function (data, type, row, meta){
-                    return '₱'+parseInt(data).toLocaleString()
+                    return parseInt(data)==1?data+' day':data+' days';
                 }
             },
+           { data : "office_name", name: "office_name" },
+           { data : "units", name: "units" },
        ],
        dom: 'Bfrtip',
        buttons: [
@@ -322,5 +271,6 @@
        fixedColumns: true,
        iDisplayLength: 25,
    })
-</script> --}}
+
+</script>
 @endsection

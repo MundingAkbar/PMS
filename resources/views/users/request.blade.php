@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th>Actions</th>
-                    <th>Findings</th>
+                    <th>Status</th>
                     <th>Deployment</th>
                     <th>Requisitioner</th>
                     <th>Property Number</th>
@@ -23,6 +23,7 @@
                     <th>Units</th>
                     <th>Unit Value</th>
                     <th>Total Value</th>
+                    <th>Findings</th>
                     <th>Remarks</th>
                     <th>Description</th>
                 </tr>
@@ -32,11 +33,11 @@
                 <tr>
                     <td>
                         <a href="" class="btn btn-danger">Delete</a>
-                        <a href="" class="btn btn-secondary">View</a>
                         <a type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#updateModal">Update</a>
                     </td>
                     <td><span class="badge {{ $i==2?'bg-danger':'bg-primary' }}">{{ $i==2?'rejected':'pending' }}</span></td>
                     <td>Akbar</td>
+                    <td>Row 1 Data 2</td>
                     <td>Row 1 Data 2</td>
                     <td>Akbar lorem10</td>
                     <td>Row 1 Data 2</td>
@@ -53,7 +54,7 @@
                     <td>Row 2 Data 2</td>
                 </tr> -->
             </tbody>
-            <tfoot>
+            {{-- <tfoot>
                 <tr>
                     <td>
                     </td>
@@ -129,7 +130,7 @@
                     </td>
 
                 </tr>
-            </tfoot>
+            </tfoot> --}}
         </table>
     </div>
 
@@ -149,9 +150,10 @@
                     <div class="row">
                         <div class="col equipment-details">
                                     @for($i = 0; $i < 5; $i++)
-                                        <span>Equipment: <b>Airconditioner, 2HP, Kolin</b></br>
-                                        <span>Property Number:</span></br>
-                                        <span>Model/Description:</span></br>
+                                        <span>Equipment: <b>Airconditioner, 2HP, Kolin</b><br>
+                                        <span>Requisitioner:</span><br>
+                                        <span>Property Number:</span><br>
+                                        <span>Model/Description:</span><br>
                                         <hr>
                                     @endfor
                         </div>
@@ -161,11 +163,11 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="article">Effective Date:</label>
-                                        <input type="date" class="form-control" name="article"  aria-label="First name" required>
+                                        <input type="date" class="form-control border-secondary" name="article"  aria-label="First name" required>
                                     </div>
                                     <div class="col">
                                         <label for="requisitioner">Date of Request:</label>
-                                        <input type="date" class="form-control">
+                                        <input type="date" class="form-control border-secondary">
                                     </div>
                                 </div>
                                 <!-- end of input group -->
@@ -173,7 +175,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="deployment">College/Office:</label>
-                                        <select class="form-select" aria-label="Default select example" required>
+                                        <select class="form-select border-secondary" aria-label="Default select example" required>
                                             <option selected>- Select Office/Department -</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
@@ -182,7 +184,7 @@
                                     </div>
                                     <div class="col">
                                         <label for="property_number">Quantity/Unit:</label>
-                                        <input type="number" class="form-control" name="property_number"  aria-label="Last name" required>
+                                        <input type="number" class="form-control border-secondary" name="property_number"  aria-label="Last name" required>
                                     </div>
                                 </div>
                                 <!-- end of input group -->
@@ -192,7 +194,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="units">Nature of Request</label>
-                                            <select class="form-select" aria-label="Default select example" required>
+                                            <select class="form-select border-secondary" aria-label="Default select example" required>
                                                 <option selected>- Select Nature of Request -</option>
                                                 <option value="1">Repair</option>
                                                 <option value="2">Cleaning</option>
@@ -202,14 +204,32 @@
                                         </div>
                                         <div class="col">
                                             <label for="unit_value">Replaced Parts (if any):</label>
-                                                <input type="text" class="form-control" id="unit_value" name="unit_value" placeholder="0.0" required>
+                                                <input type="text" class="form-control border-secondary" id="unit_value" name="unit_value" placeholder="0.0" required>
                                         </div>
                                         <div class="col">
                                             <label for="unit_value">Estimated amount of Replaced parts:</label>
                                             <div class="input-group">
                                                 <div class="input-group-text">₱</div>
-                                                <input type="text" class="form-control" id="unit_value" name="unit_value" placeholder="0.0" required>
+                                                <input type="text" class="form-control border-secondary" id="unit_value" name="unit_value" placeholder="0.0" required>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <!-- end of input group -->
+                                     <!-- input group -->
+                                     <div class="row">
+                                        <div class="col">
+                                            <label for="status">Status</label>
+                                            <select class="form-select border-secondary" aria-label="Default select example" required>
+                                                <option selected>- Select Status -</option>
+                                                <option value="1">Pending</option>
+                                                <option value="2">Accepted</option>
+                                                <option value="3">Rejected</option>
+                                                <option value="">Done</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label for="units">Units</label>
+                                                <input type="number" class="form-control border-secondary" id="units" name="units" required>
                                         </div>
                                     </div>
                                     <!-- end of input group -->
@@ -220,7 +240,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="total_value">Requested by:</label>
-                                            <select class="form-select" aria-label="Default select example" required>
+                                            <select class="form-select border-secondary" aria-label="Default select example" required>
                                                 <option selected>- Select Nature of Request -</option>
                                                 <option value="1">Repair</option>
                                                 <option value="2">Cleaning</option>
@@ -230,7 +250,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="description">Assigned Technical Personnel:</label>
-                                            <select class="form-select" aria-label="Default select example" required>
+                                            <select class="form-select border-secondary" aria-label="Default select example" required>
                                                 <option selected>- Select Nature of Request -</option>
                                                 <option value="1">Repair</option>
                                                 <option value="2">Cleaning</option>
@@ -244,17 +264,11 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="article">Date Received:</label>
-                                            <input type="date" class="form-control" name="article"  aria-label="First name" required>
+                                            <input type="date" class="form-control border-secondary" name="article"  aria-label="First name" required>
                                         </div>
                                         <div class="col">
                                             <label for="requisitioner">Findings:</label>
-                                            <select class="form-select" aria-label="Default select example" required>
-                                                <option selected>- Select Findings -</option>
-                                                <option value="1">Pending</option>
-                                                <option value="2">Accepted</option>
-                                                <option value="3">Rejected</option>
-                                                <option value="">Done</option>
-                                            </select>
+                                            <input type="text" class="form-control border-secondary" name="article"  aria-label="First name" required>
                                         </div>
                                     </div>
                                     <!-- end of input group -->
@@ -262,11 +276,11 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="article">Action Taken:</label>
-                                            <input type="text" class="form-control" name="article"  aria-label="First name" required>
+                                            <input type="text" class="form-control border-secondary" name="article"  aria-label="First name" required>
                                         </div>
                                         <div class="col">
                                             <label for="requisitioner">Recommending For:</label>
-                                            <select class="form-select" aria-label="Default select example" required>
+                                            <select class="form-select border-secondary" aria-label="Default select example" required>
                                                 <option selected>- Select Recommending For -</option>
                                                 <option value="1">Cleaning</option>
                                                 <option value="2">Repair</option>
@@ -282,7 +296,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="article">Date Returned By:</label>
-                                            <select class="form-select" aria-label="Default select example" required>
+                                            <select class="form-select border-secondary" aria-label="Default select example" required>
                                                 <option selected>- Select -</option>
                                                 <option value="1">Cleaning</option>
                                                 <option value="2">Repair</option>
@@ -294,7 +308,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="requisitioner">Accepted By:</label>
-                                            <select class="form-select" aria-label="Default select example" required>
+                                            <select class="form-select border-secondary" aria-label="Default select example" required>
                                                 <option selected>- Select -</option>
                                                 <option value="1">Cleaning</option>
                                                 <option value="2">Repair</option>
