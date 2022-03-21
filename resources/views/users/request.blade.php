@@ -136,17 +136,17 @@
 
     <!-- =============================================================== -->
     <!-- Add Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="requestModal" tabindex="-1" aria-labelledby="requestModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add Request</h5>
+                <h5 class="modal-title" id="requestModalLabel">Add Request</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
             <form action="">
                     <!-- equipment details -->
-                    <h4>5 selected Equipment</h4>
+                    <h4><span id="total_selected">0</span> selected Equipment</h4>
                     <div class="row">
                         <div class="col equipment-details">
                                     @for($i = 0; $i < 5; $i++)
@@ -566,6 +566,22 @@
                         <td>{{ $e->account_code }}</td>
                         <td>{{ $e->remarks }}</td>
                         <td>{{ $e->description }}</td>
+                    </tr>
+                    @endforeach
+                    @foreach( $vehicles as $v)
+                    <tr>
+                        <td>
+                            <div class="row justify-content-center">
+                                <input type="checkbox" class="form-check-input chk_equipment border-dark" name="ids" id="ids" value="{{ $v->id }}">
+                            </div>
+                        </td>
+                        <td>{{ $v->article_name }}</td>
+                        <td>{{ $v->office_name }}</td>
+                        <td>{{ $v->first_name.' '.$v->last_name }}</td>
+                        <td>{{ $v->property_number }}</td>
+                        <td>{{ $v->account_code }}</td>
+                        <td>{{ $v->remarks }}</td>
+                        <td>{{ $v->description }}</td>
                     </tr>
                     @endforeach
                 </tbody>

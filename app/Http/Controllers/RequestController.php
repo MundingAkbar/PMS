@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Offices;
 use App\Models\Equipment;
+use App\Modesl\Vehicles;
 use App\Models\Maintenances;
 use App\Models\Articles;
 use Illuminate\Support\Facades\Validator;
@@ -23,9 +24,16 @@ class RequestController extends Controller
         ->leftjoin('offices','offices.id','=','equipment.deployment')
         ->select('equipment.*','articles.article AS article_name','articles.account_code','users.first_name','users.last_name','offices.office_name')
         ->get();
+        $vehicles = DB::table('vehicles')
+        ->leftjoin('articles','articles.id','=','vehicles.article')
+        ->leftjoin('users','users.id','=','vehicles.requisitioner')
+        ->leftjoin('offices','offices.id','=','vehicles.deployment')
+        ->select('vehicles.*','articles.article AS article_name','articles.account_code','users.first_name','users.last_name','offices.office_name')
+        ->get();
 
         return view('users.request',[
             'equipment'=>$equipment,
+            'vehicles'=>$vehicles
         ]);
     }
 }
