@@ -21,4 +21,15 @@ $(document).ready( function () {
             .search( $(this).val() )
             .draw();
     });
+       // ====================================================
+    // equipment table
+    var equipmentTable = $('#equipmentTable').DataTable({
+        scrollY: "400px",
+        scrollX: true,
+        scrollCollapse: true,
+        columnDefs: [
+            { width: '20%', targets: 4 }
+        ],
+        iDisplayLength: 25,
+    })
 });
