@@ -183,7 +183,7 @@ $(document).ready( function () {
                     $('#edit_effective_date').val(response.request.effective_date);
                     $('#edit_date_of_request').val(response.request.date_of_request);
                     $('#edit_office').val(response.request.office);
-                    $('#edit_units').val(response.request.units);
+                    $('#edit_units').val(response.request.quantity);
                     $('#edit_nature_of_request').val(response.request.nature_of_request);
                     $('#edit_replaced_parts').val(response.request.replaced_parts);
                     $('#edit_amount_of_replaced_parts').val(response.request.amount_of_replaced_parts);
