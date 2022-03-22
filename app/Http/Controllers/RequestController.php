@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\Offices;
 use App\Models\Requests;
 use App\Models\Equipment;
-use App\Modesl\Vehicles;
+use App\Models\Vehicles;
 use App\Models\Maintenances;
 use App\Models\Articles;
 use Illuminate\Support\Facades\Validator;
@@ -83,9 +83,11 @@ class RequestController extends Controller
                 $req->accepted_by = $request->input('accepted_by');
                 $req->save();
 
+                $latest_id = Requests::select('id')->latest('id')->first();
                 return response()->json([
                     'status'=>200,
                     'message'=>'New Request Added Successfully...',
+                    'id'=>$latest_id->id
                 ]);
             }catch(QueryException $ex){
                 return response()->json([
@@ -118,15 +120,110 @@ class RequestController extends Controller
                         ->make(true);
     }
     // updating items request
-    public function update_equipment($id){
+    public function update_equipment(Request $request, $id){
 
         $equipment = Equipment::find($id);
         if($equipment){
-            $equipment->units = $request->input('units');
+            $equipment->request = $request->input('request_id');
             $equipment->update();
-        }else{
 
+            return response()->json([
+                'status'=>200,
+                'message'=>'Maitenance Schedule Updated Successfully... :)'
+            ]);
+        }else{
+            return response()->json([
+                'status'=>400,
+                'message'=>'Something went wrong... :)'
+            ]);
         }
-           
+    }
+    public function update_vehicles(Request $request, $id){
+
+        $vehicle = Vehicles::find($id);
+        if($vehicle){
+            $vehicle->request = $request->input('request_id');
+            $vehicle->update();
+
+            return response()->json([
+                'status'=>200,
+                'message'=>'Request for Vehicle added successfully... :)'
+            ]);
+        }else{
+            return response()->json([
+                'status'=>400,
+                'message'=>'Something went wrong... :)'
+            ]);
+        }
+    }
+    // fetching data to and return to response modal
+    public function edit($id){
+
+        $request = Requests::find($id);
+
+        if($request){
+            return response()->json([
+                'status'=>200,
+                'request'=>$request,
+                ]);
+        }else{
+            return response()->json([
+                'status'=>404,
+                'message'=>'Request Not Found... :(',
+            ]);
+        }
+    }
+        // updating the data
+        public function update(Request $request, $id){
+        
+            $req = Requests::find($id);
+          
+            if($req){
+                $req->effective_date = $request->input('effective_date');
+                $req->date_of_request = $request->input('date_of_request');
+                $req->office = $request->input('office');
+                $req->quantity = $request->input('units');
+                $req->nature_of_request = $request->input('nature_of_request');
+                $req->replaced_parts = $request->input('replaced_parts');
+                $req->amount_of_replaced_parts = $request->input('amount_of_replaced_parts');
+                $req->status = $request->input('status');
+                $req->requested_by = $request->input('requested_by');
+                $req->assigned_personnel = $request->input('assigned_personnel');
+                $req->date_received = $request->input('date_received');
+                $req->findings = $request->input('findings');
+                $req->action_taken = $request->input('action_taken');
+                $req->recommending_for = $request->input('recommending_for');
+                $req->date_returned_by = $request->input('date_returned_by');
+                $req->accepted_by = $request->input('accepted_by');
+                $req->update();
+                
+                return response()->json([
+                    'status'=>200,
+                    'message'=>'Request Record Updated Successfully... :)'
+                ]);
+            }else{
+                return response()->json([
+                    'status'=>404,
+                    'message'=>'Request Not Found... :(',
+                ]);
+            }
+        }
+    // Deleting data
+     public function destroy($id){
+        $req = Requests::find($id);
+
+        if($req){
+            $req->delete();
+            
+            return response()->json([
+                'status'=>200,
+                'message'=>'Request Record Deleted... :)'
+            ]);
+        }else{
+            return response()->json([
+                'status'=>404,
+                'message'=>'Request Schedule Not Found... :(',
+            ]);
+        }
     }
 }

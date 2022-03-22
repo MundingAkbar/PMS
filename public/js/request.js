@@ -101,9 +101,9 @@ $(document).ready( function () {
                         text: 'Something went wrong...',
                     });
                 }else if(response.status == 200){
-                    swal({
-                        text: response.message
-                    });
+                    var data = {
+                        'request_id' : response.id,
+                    }
                     // ajax for updating the equipment request
                     equipment_selected.forEach(function(item, index){
                         var selected = item.split(',');
@@ -111,41 +111,45 @@ $(document).ready( function () {
                             // ajax for updating equipment request
                             $.ajax({
                                 type: "PUT",
-                                url: "/admin/properties/requests/add_requests_to_equipment/"+item,
+                                url: "/admin/properties/requests/add_requests_to_equipment/"+parseInt(selected[0]),
                                 data: data,
                                 dataType: "json",
                                 success: function (response) {
                                     if(response.status == 404){
-                                        swal({
-                                            text: "Something went wrong..."
-                                        });
+                                        console.log('not ok');
+                                    }else if(response.status == 200){
+                                        console.log('ok');
+                                    }else{
+                                        console.log('not ok');
                                     }
                                 }
                             });
                             // end of ajax function
                         }else if(selected[1] == 'v'){
-                             // ajax for updating equipment request
+                             // ajax for updating vehicles request
                              $.ajax({
                                 type: "PUT",
-                                url: "/admin/properties/requests/add_requests_to_items/"+item,
+                                url: "/admin/properties/requests/add_requests_to_vehicles/"+parseInt(selected[0]),
                                 data: data,
                                 dataType: "json",
                                 success: function (response) {
                                     if(response.status == 404){
-                                        swal({
-                                            text: "Something went wrong..."
-                                        });
+                                        console.log('not ok');
+                                    }else if(response.status == 200){
+                                        console.log('ok');
+                                    }else{
+                                        console.log('not ok');
                                     }
                                 }
                             });
                             // end of ajax function
                         }
-                        // if(index+1 == max){ 
-                        //     $('#btn_submit').text('Submit');
-                        //     swal({
-                        //         text: 'Maintenance Schedule Added Successfully...',
-                        //     });
-                        // }
+                        if(index+1 == max_length){ 
+                            $('#btn_submit').text('Submit');
+                            swal({
+                                text: 'Request Added Successfully...',
+                            });
+                        }
                     })
                     $('#requestModal').modal('hide');
                 }else{
@@ -154,6 +158,120 @@ $(document).ready( function () {
                     });
                 }
                 $('#btn_submit').text('Submit');
+                $('#myTable').DataTable().ajax.reload(null, false);
+            }
+        });
+    });
+    // fetching data and transfer to modal
+        // =========================================================
+    // fetching data to edit modal form
+    $(document).on('click', '.btn_edit', function (e) {
+        e.preventDefault();
+        $(this).text('Fetching Data...');
+        var request_id = $(this).val();
+        $.ajax({
+            type: "GET",
+            url: "/admin/properties/requests/edit/"+request_id,
+            success: function (response) {
+                if(response.status == 404){
+                    swal({
+                        text: response.message,
+                    });
+                }else{
+
+                    $('#edit_id').val(response.request.id);
+                    $('#edit_effective_date').val(response.request.effective_date);
+                    $('#edit_date_of_request').val(response.request.date_of_request);
+                    $('#edit_office').val(response.request.office);
+                    $('#edit_units').val(response.request.units);
+                    $('#edit_nature_of_request').val(response.request.nature_of_request);
+                    $('#edit_replaced_parts').val(response.request.replaced_parts);
+                    $('#edit_amount_of_replaced_parts').val(response.request.amount_of_replaced_parts);
+                    $('#edit_status').val(response.request.status);
+                    $('#edit_requested_by').val(response.request.requested_by);
+                    $('#edit_technical_personnel').val(response.request.assigned_personnel);
+                    $('#edit_date_received').val(response.request.date_received);
+                    $('#edit_findings').val(response.request.findings);
+                    $('#edit_action_taken').val(response.request.action_taken);
+                    $('#edit_recommending_for').val(response.request.recommending_for);
+                    $('#edit_date_returned_by').val(response.request.date_returned_by);
+                    $('#edit_accepted_by').val(response.request.accepted_by);
+                }
+                $('.btn_edit').text('Update');
+            }
+        });
+    });
+       // =====================================================
+    // updating record
+    $(document).on('click', '#update_btn', function (e) {
+        e.preventDefault();
+        $(this).text('Updating...');
+        var request_id = $('#edit_id').val();
+        var data = {
+            'effective_date' : $('#edit_effective_date').val(),
+            'date_of_request' : $('#edit_date_of_request').val(),
+            'office' : $('#edit_office').val(),
+            'units' : $('#edit_units').val(),
+            'nature_of_request' : $('#edit_nature_of_request').val(),
+            'replaced_parts' : $('#edit_replaced_parts').val(),
+            'amount_of_replaced_parts' : $('#edit_amount_of_replaced_parts').val(),
+            'status' : $('#edit_status').val(),
+            'requested_by' : $('#edit_requested_by').val(),
+            'assigned_personnel' : $('#edit_technical_personnel').val(),
+            'date_received' : $('#edit_date_received').val(),
+            'findings' : $('#edit_findings').val(),
+            'action_taken' : $('#edit_action_taken').val(),
+            'recommending_for' : $('#edit_recommending_for').val(),
+            'date_returned_by' : $('#edit_date_returned_by').val(),
+            'accepted_by' : $('#edit_accepted_by').val(),
+        };
+
+        $.ajax({
+            type: "PUT",
+            url: "/admin/properties/requests/edit/save/"+request_id,
+            data: data,
+            dataType: "json",
+            success: function (response) {
+                if(response.status == 404){
+                    swal({
+                        text: response.message,
+                    });
+                }else{
+                    swal({
+                        text: response.message,
+                    });
+               }
+               $('#updateModal').modal('hide');
+               $('#update_btn').text('Update');
+               $('#myTable').DataTable().ajax.reload(null, false);
+            }
+        });
+    });
+    // ===============================================
+    // fetching the delete data
+    $(document).on('click','.btn_delete', function (e) {
+        e.preventDefault();
+        var request_id = $(this).val();
+
+        $('#delete_id').val(request_id);
+        $('#deleteModal').modal('show');
+    });
+        // Confirmed delete data
+        $(document).on('click','.delete_btn', function (e) {
+        e.preventDefault();
+
+        var request_id = $('#delete_id').val();
+        $(this).text('Deleting...');
+
+        $.ajax({
+            type: "DELETE",
+            url: "/admin/properties/requests/delete/confirm/"+request_id,
+            success: function (response) {
+                swal({
+                    text: response.message,
+                });
+                $('.delete_btn').text('Yes Delete');
+                $('#deleteModal').modal('hide');
                 $('#myTable').DataTable().ajax.reload(null, false);
             }
         });

@@ -324,187 +324,185 @@
         <!-- =============================================================== -->
     <!-- Update Modal -->
     <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Update Request</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <form action="">
-                        <div class="row">
-                            <div class="col equipment-details">
-                                        @for($i = 0; $i < 5; $i++)
-                                            <span>Equipment: <b>Airconditioner, 2HP, Kolin</b></br>
-                                            <span>Property Number:</span></br>
-                                            <span>Model/Description:</span></br>
-                                            <hr>
-                                        @endfor
-                            </div>
-                            <div class="col">
-                                <!-- request forms -->
-                                    <!-- input group -->
-                                    <div class="row">
-                                        <div class="col">
-                                            <label for="article">Effective Date:</label>
-                                            <input type="date" class="form-control" name="article"  aria-label="First name" required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="requisitioner">Date of Request:</label>
-                                            <input type="date" class="form-control">
-                                        </div>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="updateModalLabel">Update Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form action="">
+                <input type="hidden" id="edit_id">
+                    <!-- equipment details -->
+                    <div class="row">
+                        <div class="col">
+                            <!-- request forms -->
+                                <!-- input group -->
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="edit_effective_date">Effective Date:</label>
+                                        <input type="date" class="form-control border-secondary" name="edit_effective_date"  id="edit_effective_date" required>
                                     </div>
-                                    <!-- end of input group -->
+                                    <div class="col">
+                                        <label for="edit_date_of_request">Date of Request:</label>
+                                        <input type="date" name="edit_date_of_request" id="edit_date_of_request" class="form-control border-secondary">
+                                    </div>
+                                </div>
+                                <!-- end of input group -->
+                                <!-- input group -->
+                                <div class="row">
+                                    <div class="col">
+                                        <label for="edit_office">College/Office:</label>
+                                        <select class="form-select border-secondary" name="edit_office" id="edit_office" required>
+                                            <option value="NULL" selected>- Select Office/Department -</option>
+                                            @foreach($offices as $office)
+                                            <option value="{{ $office->id }}">{{ $office->office_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col">
+                                        <label for="edit_units">Quantity/Unit:</label>
+                                        <input type="number" class="form-control border-secondary" name="edit_units" id="edit_units" required>
+                                    </div>
+                                </div>
+                                <!-- end of input group -->
+                                <hr>
+                                <fieldset>
                                     <!-- input group -->
                                     <div class="row">
                                         <div class="col">
-                                            <label for="deployment">College/Office:</label>
-                                            <select class="form-select" aria-label="Default select example" required>
-                                                <option selected>- Select Office/Department -</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                            <label for="edit_nature_of_request">Nature of Request</label>
+                                            <select class="form-select border-secondary" name="edit_nature_of_request" id="edit_nature_of_request">
+                                                <option selected>- Select Nature of Request -</option>
+                                                <option value="Repair">Repair</option>
+                                                <option value="Cleaning">Cleaning</option>
+                                                <option value="Installation (New)">Installation (New)</option>
+                                                <option value="Installation (Replacement)">Installation (Replacement)</option>
+                                                <option value="Pull-out for Disposal">Pull-out for Disposal</option>
+                                                <option value="Pull-out for Storage">Pull-out for Storage</option>
                                             </select>
                                         </div>
                                         <div class="col">
-                                            <label for="property_number">Quantity/Unit:</label>
-                                            <input type="number" class="form-control" name="property_number"  aria-label="Last name" required>
+                                            <label for="edit_replaced_parts">Replaced Parts (if any):</label>
+                                                <input type="text" class="form-control border-secondary" id="edit_replaced_parts" name="edit_replaced_parts">
+                                        </div>
+                                        <div class="col">
+                                            <label for="edit_amount_of_replaced_parts">Estimated amount of Replaced parts:</label>
+                                            <div class="input-group">
+                                                <div class="input-group-text">₱</div>
+                                                <input type="number" class="form-control border-secondary" id="edit_amount_of_replaced_parts" name="edit_amount_of_replaced_parts" placeholder="0.0">
+                                            </div>
                                         </div>
                                     </div>
                                     <!-- end of input group -->
-                                    <hr>
-                                    <fieldset>
-                                        <!-- input group -->
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="units">Nature of Request</label>
-                                                <select class="form-select" aria-label="Default select example" required>
-                                                    <option selected>- Select Nature of Request -</option>
-                                                    <option value="1">Repair</option>
-                                                    <option value="2">Cleaning</option>
-                                                    <option value="3">Installation (New)</option>
-                                                    <option value="">Installation (Replacement)</option>
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label for="unit_value">Replaced Parts (if any):</label>
-                                                    <input type="text" class="form-control" id="unit_value" name="unit_value" placeholder="0.0" required>
-                                            </div>
-                                            <div class="col">
-                                                <label for="unit_value">Estimated amount of Replaced parts:</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-text">₱</div>
-                                                    <input type="text" class="form-control" id="unit_value" name="unit_value" placeholder="0.0" required>
-                                                </div>
-                                            </div>
+                                     <!-- input group -->
+                                     <div class="row">
+                                        <div class="col">
+                                            <label for="edit_status">Status</label>
+                                            <select class="form-select border-secondary" name="edit_status" id="edit_status" required>
+                                                <option selected>- Select Status -</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="Accepted">Accepted</option>
+                                                <option value="Rejected">Rejected</option>
+                                                <option value="Done">Done</option>
+                                            </select>
                                         </div>
-                                        <!-- end of input group -->
-                                    </fieldset>
-                                    <hr>
-                                    <fieldset>
-                                        <!-- input group -->
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="total_value">Requested by:</label>
-                                                <select class="form-select" aria-label="Default select example" required>
-                                                    <option selected>- Select Nature of Request -</option>
-                                                    <option value="1">Repair</option>
-                                                    <option value="2">Cleaning</option>
-                                                    <option value="3">Installation (New)</option>
-                                                    <option value="">Installation (Replacement)</option>
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label for="description">Assigned Technical Personnel:</label>
-                                                <select class="form-select" aria-label="Default select example" required>
-                                                    <option selected>- Select Nature of Request -</option>
-                                                    <option value="1">Repair</option>
-                                                    <option value="2">Cleaning</option>
-                                                    <option value="3">Installation (New)</option>
-                                                    <option value="">Installation (Replacement)</option>
-                                                </select>
-                                            </div>
+                                        <div class="col">
                                         </div>
-                                        <!-- end of input group -->
-                                        <!-- input group -->
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="article">Date Received:</label>
-                                                <input type="date" class="form-control" name="article"  aria-label="First name" required>
-                                            </div>
-                                            <div class="col">
-                                                <label for="requisitioner">Findings:</label>
-                                                <select class="form-select" aria-label="Default select example" required>
-                                                    <option selected>- Select Findings -</option>
-                                                    <option value="1">Pending</option>
-                                                    <option value="2">Accepted</option>
-                                                    <option value="3">Rejected</option>
-                                                    <option value="">Done</option>
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <!-- end of input group -->
+                                </fieldset>
+                                <hr>
+                                <fieldset>
+                                    <!-- input group -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="edit_requested_by">Requested by:</label>
+                                            <select class="form-select border-secondary" name="edit_requested_by" id="edit_requested_by" required>
+                                                <option value="NULL" selected>- Select -</option>
+                                                @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <!-- end of input group -->
-                                        <!-- input group -->
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="article">Action Taken:</label>
-                                                <input type="text" class="form-control" name="article"  aria-label="First name" required>
-                                            </div>
-                                            <div class="col">
-                                                <label for="requisitioner">Recommending For:</label>
-                                                <select class="form-select" aria-label="Default select example" required>
-                                                    <option selected>- Select Recommending For -</option>
-                                                    <option value="1">Cleaning</option>
-                                                    <option value="2">Repair</option>
-                                                    <option value="3">Installation</option>
-                                                    <option value="">Pull-out for Disposal</option>
-                                                    <option value="">Property Management Office</option>
-                                                    <option value="">University Service Center</option>
-                                                </select>
-                                            </div>
+                                        <div class="col">
+                                            <label for="edit_technical_personnel">Assigned Technical Personnel:</label>
+                                            <select class="form-select border-secondary" name="edit_technical_personnel" id="edit_technical_personnel" required>
+                                                <option value="NULL" selected>- Select -</option>
+                                                @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
-                                        <!-- end of input group -->
-                                        <!-- input group -->
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="article">Date Returned By:</label>
-                                                <select class="form-select" aria-label="Default select example" required>
-                                                    <option selected>- Select -</option>
-                                                    <option value="1">Cleaning</option>
-                                                    <option value="2">Repair</option>
-                                                    <option value="3">Installation</option>
-                                                    <option value="">Pull-out for Disposal</option>
-                                                    <option value="">Property Management Office</option>
-                                                    <option value="">University Service Center</option>
-                                                </select>
-                                            </div>
-                                            <div class="col">
-                                                <label for="requisitioner">Accepted By:</label>
-                                                <select class="form-select" aria-label="Default select example" required>
-                                                    <option selected>- Select -</option>
-                                                    <option value="1">Cleaning</option>
-                                                    <option value="2">Repair</option>
-                                                    <option value="3">Installation</option>
-                                                    <option value="">Pull-out for Disposal</option>
-                                                    <option value="">Property Management Office</option>
-                                                    <option value="">University Service Center</option>
-                                                </select>
-                                            </div>
+                                    </div>
+                                    <!-- end of input group -->
+                                    <!-- input group -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="edit_date_received">Date Received:</label>
+                                            <input type="date" class="form-control border-secondary" name="edit_date_received"  id="edit_date_received" required>
                                         </div>
-                                        <!-- end of input group -->
-                                    </fieldset>
-                                    <!-- end of request form -->
-                            </div>
+                                        <div class="col">
+                                            <label for="edit_findings">Findings:</label>
+                                            <input type="text" class="form-control border-secondary" name="edit_findings" id="edit_findings" required>
+                                        </div>
+                                    </div>
+                                    <!-- end of input group -->
+                                    <!-- input group -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="edit_action_taken">Action Taken:</label>
+                                            <input type="text" class="form-control border-secondary" name="edit_action_taken" id="edit_action_taken" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="edit_recommending_for">Recommending For:</label>
+                                            <select class="form-select border-secondary" name="edit_recommending_for" id="edit_recommending_for" required>
+                                                <option selected>- Select Recommending For -</option>
+                                                <option value="Cleaning">Cleaning</option>
+                                                <option value="Repair">Repair</option>
+                                                <option value="Installation">Installation</option>
+                                                <option value="Pull-out for Disposal">Pull-out for Disposal</option>
+                                                <option value="Pull-out for Storage">Pull-out for Storage</option>
+                                                <option value="Property Management Office">Property Management Office</option>
+                                                <option value="University Service Center">University Service Center</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- end of input group -->
+                                    <!-- input group -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="date_returned_by">Date Returned By:</label>
+                                            <select class="form-select border-secondary" name="edit_date_returned_by" id="edit_date_returned_by" required>
+                                                <option selected>- Select -</option>
+                                                @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label for="edit_accepted_by">Accepted By:</label>
+                                            <select class="form-select border-secondary" id="edit_accepted_by" name="edit_accepted_by" required>
+                                                <option selected>- Select -</option>
+                                                @foreach($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->first_name }} {{ $user->last_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- end of input group -->
+                                </fieldset>
+                                <!-- end of request form -->
                         </div>
-                        
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Update</button>
-                        </div>
-                </form>
-                </div>
+                    </div>
+                    
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="update_btn">Update</button>
+                    </div>
+            </form>
             </div>
+        </div>
     </div>
     <!-- End of Add Modal -->
      <!-- =============================================================== -->
@@ -541,7 +539,9 @@
                     <tr>
                         <td>
                             <div class="row justify-content-center">
-                                <input type="checkbox" class="form-check-input chk_equipment border-dark" name="ids" id="ids" value="{{ $e->id.',e' }}">
+                                @if($e->request == NULL)
+                                     <input type="checkbox" class="form-check-input chk_equipment border-dark" name="ids" id="ids" value="{{ $e->id.',e' }}">
+                                @endif
                             </div>
                         </td>
                         <td>{{ $e->article_name }}</td>
@@ -557,7 +557,9 @@
                     <tr>
                         <td>
                             <div class="row justify-content-center">
+                                @if($v->request == NULL)
                                 <input type="checkbox" class="form-check-input chk_equipment border-dark" name="ids" id="ids" value="{{ $v->id.',v' }}">
+                                @endif
                             </div>
                         </td>
                         <td>{{ $v->article_name }}</td>
@@ -642,8 +644,29 @@
             </div>
         </div>
     </div>
-        <!-- End of Add Modal -->
-          <!-- =============================================================== -->
+<!-- End of Add Modal -->
+    {{-- ============================================================= --}}
+    {{-- Delete Confirmation Modal --}}
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+            <h5 class="modal-title" id="deleteModalLabel">Delete Confirmation</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <input type="hidden" id="delete_id">
+            Are your sure you want to delete this record?
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary delete_btn">Yes Delete</button>
+            </div>
+        </div>
+        </div>
+    </div>
+    {{-- end of delete modal --}}
 @endsection
 
 @section('scripts')
@@ -672,13 +695,13 @@
                searchable: true,
                "render": function (data, type, row, meta){
                    if(data == 'Accepted'){
-                       return "<span class='badge bg-success'>"+data+"</span>"
+                       return "<span class='badge bg-dark'>"+data+"</span>"
                    }else if(data == 'Rejected'){
                         return "<span class='badge bg-danger'>"+data+"</span>"
                    }else if(data == 'Pending'){
                         return "<span class='badge bg-secondary'>"+data+"</span>"
                    }else{
-                         return "<span class='badge bg-warning'>"+data+"</span>"
+                         return "<span class='badge bg-success'>"+data+"</span>"
                    }
                }
            },
